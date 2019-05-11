@@ -1,6 +1,5 @@
 const suits = ['Diamond', 'Spades', 'Clover', 'Hearts']
-const faces = [
-  {
+const faces = [{
     rank: 'Ace',
     value: 11
   },
@@ -66,21 +65,25 @@ const main = () => {
         rank: faces[j].rank,
         value: faces[j].value,
         suit: suits[i],
-        imageUrl:
-          './still/' + faces[j].rank.slice(0, 1) + suit.slice(0, 1) + '.jpg'
+        imageUrl: './still/' + faces[j].rank.slice(0, 1) + suit.slice(0, 1) + '.jpg'
       }
+      if (card.rank === '10') {
+        // Set the imageUrl of the card to the correct value
+        card.imageUrl = './still/' + '10' + suit.slice(0, 1) + '.jpg'
+      }
+
       cardDeck.push(card)
       console.log('card pushed to deck')
     }
   }
 }
 const shuffle = () => {
-  for (let i = 52; i > 1; i--) {
-    const randomLocation = Math.floor(Math.random() * i)
+  for (let i = 0; i < cardDeck.length; i++) {
+    const randomLocation = Math.floor(Math.random() * 52)
     const lastCard = cardDeck[i]
     cardDeck[i] = cardDeck[randomLocation]
     cardDeck[randomLocation] = lastCard
-    cardDeck.push(lastCard)
+    // cardDeck.push(lastCard)
   }
 }
 
@@ -103,6 +106,7 @@ const play = () => {
   const takeCard2 = cardDeck.pop()
   dealer.push(takeCard, takeCard2)
   console.log(dealer, player1)
+  document.querySelector('.play').disabled = true
 }
 
 const stay = () => {
@@ -115,6 +119,8 @@ const stay = () => {
   card2.setAttribute('class', 'card')
   dealHand.appendChild(card1)
   dealHand.appendChild(card2)
+  document.querySelector('.deal').disabled = true
+  document.querySelector('.stay').disabled = true
 }
 
 document.addEventListener('DOMContentLoaded', main)
