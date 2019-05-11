@@ -27,3 +27,8 @@ button {
   padding: 1rem;
   margin: 1rem;
 }
+
+.card {
+  width: 100px;
+  height: 100px;
+}
