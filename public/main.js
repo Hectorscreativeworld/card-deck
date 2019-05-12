@@ -87,7 +87,7 @@ const shuffle = () => {
   }
 }
 
-const dealCard = () => {
+const hit = () => {
   const takeCard = cardDeck.pop()
 
   const imageTag = document.createElement('img')
@@ -96,17 +96,47 @@ const dealCard = () => {
   const playerHand = document.querySelector('.player-1-hand')
   player1.push(takeCard)
   playerHand.appendChild(imageTag)
+  if (player1.length > 2) {
+    checkIfPlayerBust()
+  }
 }
 
+const checkIfPlayerBust = () => {
+  let sum = 0
+  for (let i = 0; i < player1.length; i++) {
+    console.log('cardpulling!', player1[i])
+    sum = sum + player1[i].value
+    console.log(sum)
+  }
+  if (sum > 21) {
+    document.querySelector('.deal').disabled = true
+    document.querySelector('.stay').disabled = true
+    document.querySelector('.title').innerHTML = 'Bust'
+    document.querySelector('.restart').style.display = 'block'
+  }
+}
 const play = () => {
+  document.querySelector('.deal').disabled = false
+  document.querySelector('.stay').disabled = false
   shuffle()
-  dealCard()
-  dealCard()
+  hit()
+  hit()
   const takeCard = cardDeck.pop()
   const takeCard2 = cardDeck.pop()
   dealer.push(takeCard, takeCard2)
   console.log(dealer, player1)
   document.querySelector('.play').disabled = true
+}
+
+const restart = () => {
+  document.querySelector('.play').disabled = false
+  document.querySelector('.player-1-hand').innerHTML = ''
+  document.querySelector('.dealers-hand').innerHTML = ''
+  cardDeck = []
+  player1 = []
+  dealer = []
+  main()
+  document.querySelector('.restart').style.display = 'none'
 }
 
 const stay = () => {
@@ -121,12 +151,41 @@ const stay = () => {
   dealHand.appendChild(card2)
   document.querySelector('.deal').disabled = true
   document.querySelector('.stay').disabled = true
+  let sum = 0
+  for (let i = 0; i < dealer.length; i++) {
+    sum = sum + dealer[i].value
+  }
+  if (sum >= 17) {
+    checkWinner()
+  } else {
+    // dealToDealer()
+  }
+}
+const checkWinner = () => {
+  let playerSum = 0
+  let dealerSum = 0
+  for (let i = 0; i < player1.length; i++) {
+    playerSum = playerSum + player1[i].value
+  }
+  for (let i = 0; i < dealer.length; i++) {
+    dealerSum = dealerSum + dealer[i].value
+  }
+  if (playerSum > dealerSum) {
+    document.querySelector('.title').innerHTML = 'You Win'
+  } else if (playerSum < dealerSum) {
+    document.querySelector('.title').innerHTML = 'Dealer Wins'
+  } else {
+    document.querySelector('.title').innerHTML = 'Tie'
+  }
+  document.querySelector('.restart').style.display = 'block'
 }
 
+
 document.addEventListener('DOMContentLoaded', main)
-document.querySelector('.deal').addEventListener('click', dealCard)
+document.querySelector('.deal').addEventListener('click', hit)
 document.querySelector('.play').addEventListener('click', play)
 document.querySelector('.stay').addEventListener('click', stay)
+document.querySelector('.restart').addEventListener('click', restart)
 // const dealOneCardToPlayer = () => {
 //   const firstCard = deck.pop()
 //   console.log(firstCard)

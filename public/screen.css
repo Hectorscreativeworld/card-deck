@@ -32,3 +32,9 @@ button {
   width: 100px;
   height: 100px;
 }
+
+.deal {}
+
+.restart {
+  display: none;
+}
