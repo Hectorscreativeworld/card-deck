@@ -19,7 +19,13 @@ body {
 }
 
 h1 {
-  columns: #23815d;
+  font-size: 3rem;
+  color: #f6f5f5;
+}
+
+h2 {
+  font-size: 2rem;
+  color: #f6f5f5;
 }
 
 button {
@@ -28,12 +34,34 @@ button {
   margin: 1rem;
 }
 
-.card {
-  width: 100px;
-  height: 100px;
+
+.hit {
+  color: #f6f5f5;
+  background-color: #c40b13;
 }
 
-.deal {}
+.stay {
+  color: #f6f5f5;
+  background-color: #226597;
+}
+
+
+
+.play {
+  color: #f6f5f5;
+  background-color: #87c0cd;
+}
+
+
+.card {
+  width: 150px;
+  height: auto;
+}
+
+.deal {
+  color: #f6f5f5;
+  background-color: #c40b13;
+}
 
 .restart {
   display: none;
