@@ -1,5 +1,6 @@
 const suits = ['Diamond', 'Spades', 'Clover', 'Hearts']
-const faces = [{
+const faces = [
+  {
     rank: 'Ace',
     value: 11
   },
@@ -65,7 +66,8 @@ const main = () => {
         rank: faces[j].rank,
         value: faces[j].value,
         suit: suits[i],
-        imageUrl: './still/' + faces[j].rank.slice(0, 1) + suit.slice(0, 1) + '.jpg'
+        imageUrl:
+          './still/' + faces[j].rank.slice(0, 1) + suit.slice(0, 1) + '.jpg'
       }
       if (card.rank === '10') {
         // Set the imageUrl of the card to the correct value
@@ -180,6 +182,16 @@ const checkWinner = () => {
   document.querySelector('.restart').style.display = 'block'
 }
 
+const dealToDealer = () => {
+  playerSum = 0
+  dealerSum = 0
+  for (let i = 0; i < dealer.length; i++) {
+    dealerSum = dealerSum + dealer[i].value
+  }
+  for (let i = 0; i < player1.length; i++) {
+    playerSum = playerSum + player1[i].value
+  }
+}
 
 document.addEventListener('DOMContentLoaded', main)
 document.querySelector('.deal').addEventListener('click', hit)
